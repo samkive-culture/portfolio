@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>박세미 — Culture Business Partner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&display=block" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f7f5f0;
+  --bg2: #f0ede6;
+  --text: #181818;
+  --muted: #999;
+  --accent: #C62917; /* 이미지에서 추출한 레드 */
+  --accent-light: #fdf2f1;
+  --line: rgba(0,0,0,0.08);
+  --serif: 'Noto Serif KR', serif;
+  --sans: 'Noto Sans KR', sans-serif;
+}
+
+html { scroll-behavior: smooth;
+scroll-padding-top: 4.5rem;  }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV: 이름/탭 2단 구성 ── */
+nav {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  z-index: 999; /* 다른 요소보다 항상 위에 있도록 높임 */
+  display: flex; 
+  flex-direction: column; 
+  align-items: flex-start; 
+  padding: 1.2rem 7vw;
+  background: rgba(247,245,240,0.92); /* 배경을 살짝 투명하게 해서 뒤가 비치게 함 */
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+
+
+.nav-top { width: 100%; margin-bottom: 0.8rem; }
+.nav-name { 
+  font-family: var(--serif); 
+  font-size: 1.1rem; 
+  font-weight: 600; 
+  letter-spacing: 0.04em;
+  cursor: pointer; /* 마우스 올리면 손가락 모양으로 변경 */
+}
+
+.nav-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+.nav-links a {
+  font-size: 0.78rem; color: var(--muted); text-decoration: none;
+  letter-spacing: 0.08em; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* ── HERO: 텍스트 짤림 및 볼드 처리 ── */
+.hero {
+  min-height: 100vh;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: flex-end;
+  padding: 9rem 7vw 8vw;
+}
+
+.hero-eyebrow {
+  font-size: 0.75rem; letter-spacing: 0.18em; color: var(--muted);
+  text-transform: uppercase; margin-bottom: 2rem;
+  opacity: 0; animation: fadeUp 0.7s 0.3s ease forwards;
+}
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 6vw, 5.2rem);
+  font-weight: 300; line-height: 1.15; letter-spacing: -0.02em;
+  word-break: keep-all; /* 한글 줄바꿈 최적화 */
+  opacity: 0; animation: fadeUp 0.8s 0.5s ease forwards;
+}
+.hero-title em { font-style: normal; font-weight: 700; color: var(--accent); }
+.hero-desc {
+  margin-top: 2.8rem; max-width: 52ch; font-size: 1.05rem;
+  color: #444; line-height: 1.9;
+  opacity: 0; animation: fadeUp 0.8s 0.7s ease forwards;
+}
+.hero-stat-row {
+  display: flex; gap: 3.5rem; margin-top: 4rem;
+  opacity: 0; animation: fadeUp 0.8s 0.9s ease forwards;
+  padding-top: 2.5rem; border-top: 1px solid var(--line);
+}
+.hero-stat-num {
+  font-family: var(--serif); font-size: 2.4rem; font-weight: 300;
+  letter-spacing: -0.02em; color: var(--accent);
+}
+.hero-stat-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.04em; margin-top: 0.2rem; }
+
+/* ── SECTION BASE ── */
+section { padding: 6rem 7vw 9rem; }
+.section-label {
+  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 1rem;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: 300; line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* ── ABOUT ── */
+
+.about { 
+  background: var(--bg); 
+  border-top: 1px solid var(--line); 
+  padding-top: 3rem !important;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  margin-top: 4rem;
+  align-items: start;
+}
+.about-body { font-size: 1rem; color: #3a3a3a; }
+.about-body p + p { margin-top: 1.4rem; }
+.about-body strong { font-weight: 500; color: var(--text); }
+.about-aside {}
+.skill-block + .skill-block { margin-top: 2.2rem; }
+.skill-name {
+  font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em;
+  text-transform: uppercase; margin-bottom: 0.4rem;
+}
+.skill-desc { font-size: 0.88rem; color: #555; line-height: 1.7; }
+
+/* ── CASES ── */
+.cases { background: var(--bg2); border-top: 1px solid var(--line); }
+.cases-header { margin-bottom: 5rem; }
+.case-list { display: flex; flex-direction: column; gap: 0; }
+
+.case-item {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  padding: 4.5rem 0;
+  border-top: 1px solid var(--line);
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.case-item.visible { opacity: 1; transform: translateY(0); }
+
+.case-left {}
+.case-num {
+  font-family: var(--serif);
+  font-size: 4rem; font-weight: 300;
+  color: rgba(0,0,0,0.08);
+  line-height: 1;
+  margin-bottom: 1.5rem;
+}
+.case-tag {
+  display: inline-block;
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 2px;
+}
+
+.case-right {}
+.case-title {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 2.2vw, 1.85rem);
+  font-weight: 400; line-height: 1.25;
+  margin-bottom: 2.5rem;
+}
+
+.case-section { margin-bottom: 2rem; }
+.case-section-label {
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.6rem; font-weight: 400;
+}
+.case-section-body { font-size: 0.95rem; color: #3a3a3a; line-height: 1.85; }
+
+.case-result {
+  margin-top: 2.5rem;
+  padding: 1.8rem 2rem;
+  background: var(--accent-light);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+}
+.case-result-label {
+  font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 0.5rem; font-weight: 500;
+}
+.case-result-body { font-size: 0.92rem; color: #1a3a7a; line-height: 1.8; }
+
+/* ── FAILURE ── */
+.failure { background: #1a1a1a; border-top: 1px solid #333; }
+.failure { padding-top: 6rem !important; }
+.failure .section-label { color: #666; }
+.failure .section-title { color: #f0ede6; }
+.failure-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-top: 4rem;
+}
+.failure-card {
+  padding: 2.5rem;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.failure-card.visible { opacity: 1; transform: translateY(0); }
+.failure-card-label {
+  font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #666; margin-bottom: 1rem;
+}
+.failure-card-body { font-size: 0.9rem; color: #bbb; line-height: 1.85; }
+.failure-card-highlight { color: #f0ede6; font-weight: 400; }
+
+/* ── CONTACT ── */
+.contact { background: var(--bg); border-top: 1px solid var(--line); text-align: center; }
+.contact .section-title { margin: 1.5rem auto 0; max-width: 18ch; }
+.contact-desc { margin: 2rem auto 0; max-width: 44ch; color: #555; font-size: 0.98rem; }
+.contact-links { display: flex; justify-content: center; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; }
+.contact-link {
+  display: inline-block;
+  padding: 0.85rem 2.2rem;
+  font-size: 0.85rem; letter-spacing: 0.06em;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+.contact-link.primary {
+  background: var(--text); color: var(--bg);
+}
+.contact-link.primary:hover { background: var(--accent); }
+.contact-link.secondary {
+  border: 1px solid var(--line); color: var(--text);
+}
+.contact-link.secondary:hover { border-color: var(--text); }
+
+/* ── FOOTER ── */
+footer {
+  padding: 2.5rem 7vw;
+  border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.75rem; color: var(--muted);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: 1rem 5vw; }
+  .nav-links { gap: 1.4rem; }
+  section { padding: 6rem 5vw; }
+  .hero { padding: 0 5vw 12vw; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .case-item { grid-template-columns: 1fr; gap: 1.5rem; }
+  .case-num { font-size: 2.5rem; }
+  .failure-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .hero-stat-row { gap: 2rem; flex-wrap: wrap; }
+  footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-top">
+    <a href="#top" class="nav-name" style="text-decoration: none; color: inherit;">박세미</a>
+  </div>
+  <div class="nav-links">
+    <a href="#about">Architect</a>
+    <a href="#culture">Culture</a>
+    <a href="#onboarding">Onboarding</a>
+    <a href="#systems">Systems</a>
+    <a href="#iteration">Iteration</a>
+    <a href="#contact">Connect</a>
+  </div>
+</nav>
+
+<div id="top"></div>
+
+
+
+<!-- HERO -->
+<section class="hero">
+ 
+  <h1 class="hero-title">
+    문화를 <em>언어</em>로 만들고,<br>구조로 작동시킵니다.
+  </h1>
+  <p class="hero-desc">
+    저는 조직의 문화적 병목을 현장에서 직접 진단하고,<br>
+    구성원이 이해하고 실행할 수 있는 구조로 번역합니다.<br>
+    테라로사에서 7년, 컬처는 슬로건이 아닌 시스템이어야 한다는 것을 배웠습니다.
+  </p>
+  <div class="hero-stat-row">
+    <div class="hero-stat">
+      <div class="hero-stat-num">60%</div>
+      <div class="hero-stat-label">현장 독립 기간 단축<br>10개월 → 4개월</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">200+</div>
+      <div class="hero-stat-label">연간 온보딩 설계<br>및 운영 인원</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">7년</div>
+      <div class="hero-stat-label">현장 → 교육 설계<br>테라로사 재직</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <p class="section-label">About</p>
+  <h2 class="section-title">시스템을 발견하고,<br>더 나은 방식으로 재구성합니다</h2>
+  <div class="about-grid">
+    <div class="about-body">
+      <p>
+        저는 감으로 일하지 않습니다. 어떤 상황에서든 먼저 묻습니다. <strong>"왜 이 구조가 비효율적이지? 더 나은 흐름은 없을까?"</strong> 형태를 보면 구조가 보이고, 구조를 보면 설계 의도가 보입니다. 이건 훈련이 아니라 본능에 가깝습니다.
+      </p>
+      <p>
+        한번 꽂히면 끝까지 갑니다. 커피 8년, 달리기 3년, 요가 TTC 자격증, HTML·CSS는 지금도 취미로 파고 있습니다. 가볍게 배우는 사람이 아닙니다. <strong>더 잘하고 싶고, 더 구조화하고 싶고, 더 설계하고 싶은 욕망</strong>이 저를 움직입니다.
+      </p>
+      <p>
+        생각은 글처럼 정리되고, 현장에선 말이 술술 나옵니다. 개념을 문서로 만들고, 사람 앞에서 설득하는 이 조합은 교육과 조직문화 분야에서 드문 역량입니다. 그리고 저는 <strong>환경이 갖춰지지 않아도 직접 만드는 사람</strong>입니다. IT팀 없이 홈페이지를 만들었고, 매뉴얼이 없으면 직접 썼습니다.
+      </p>
+    </div>
+    <div class="about-aside">
+      <div class="skill-block">
+        <div class="skill-name">System Thinking</div>
+        <div class="skill-desc">형태 → 구조 → 맥락 → 설계 의도 순으로 먼저 생각합니다. 감이 아닌 패턴으로 문제를 봅니다.</div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-name">Deep Dive</div>
+        <div class="skill-desc">한번 시작하면 끝까지 갑니다. 커피·요가·HTML·달리기, 모두 자격증이나 완성도까지 밀어붙였습니다.</div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-name">글 + 말</div>
+        <div class="skill-desc">개념을 문서로 정리하고, 현장에서 말로 설득합니다. 둘 다 되는 조합은 문화·교육 직무에서 레어합니다.</div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-name">Path Making</div>
+        <div class="skill-desc">없으면 만듭니다. 홈페이지, 매뉴얼, 교육 시스템 모두 환경이 갖춰지기 전에 먼저 만들었습니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section class="cases" id="cases">
+  <div class="cases-header">
+    <p class="section-label">Selected Cases</p>
+    <h2 class="section-title">진단하고, 설계하고,<br>측정했습니다</h2>
+  </div>
+
+  <div class="case-list">
+
+    <!-- CASE 1: 조직문화 내재화 -->
+    <div class="case-item" id="culture" data-animate>
+      <div class="case-left">
+        <div class="case-num">01</div>
+        <span class="case-tag">Culture</span>
+      </div>
+      <div class="case-right">
+        <h3 class="case-title">급격한 성장 속에서 흐려진<br>조직의 코어를 재정의하다</h3>
+
+        <div class="case-section">
+          <div class="case-section-label">진단</div>
+          <div class="case-section-body">
+            조직이 빠르게 성장하며 커피 자체에 대한 관심보다 '취업'의 관점으로 합류하는 신규 구성원이 늘어나기 시작했습니다. 현장에서는 <strong>"예전과 다르다", "테라로사다움이 희미해진다"</strong>는 정체성 혼란의 신호가 반복적으로 포착되었습니다. 기존 멤버들의 목소리를 체계적으로 취합한 결과, 문제는 공감의 부족이 아니라 핵심 가치가 온보딩 과정에서 <strong>구조적으로 전달되지 않았기 때문</strong>임을 확인했습니다.
+          </div>
+        </div>
+
+        <div class="case-section">
+          <div class="case-section-label">계획 및 실행</div>
+          <div class="case-section-body">
+            기존 커피 지식·기술 중심 교육을 재설계해, 농부부터 고객까지 이어지는 커피 체인 안에서 각 구성원이 맡은 역할과 책임을 이해하는 교육으로 전환했습니다. 이와 함께 기업 문화를 녹여낸 <strong>브랜드 매뉴얼북을 최초 제작</strong>해, 구성원이 회사의 가치를 공통된 언어로 이해하고 설명할 수 있는 기반을 만들었습니다. 매뉴얼북은 텍스트로만 끝내지 않았습니다. 핵심 가치를 직관적으로 전달하기 위해 직무 교육용 영상도 직접 촬영하고 편집해 병행 배포했습니다.
+          </div>
+        </div>
+
+        <div class="case-result">
+          <div class="case-result-label">결과</div>
+          <div class="case-result-body">
+            온보딩 이후 서베이에서 대부분의 신규 구성원이 "스페셜티 커피 체인 안에서 내가 맡은 역할을 이해하고 있다", "그 역할에 책임감을 느낀다"고 응답했습니다. 컬처 교육이 단순 메시지 전달을 넘어 정체성 인식과 태도 형성에 영향을 주고 있음을 데이터로 확인했습니다.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 2: 온보딩 -->
+    <div class="case-item" id="onboarding" data-animate>
+      <div class="case-left">
+        <div class="case-num">02</div>
+        <span class="case-tag">Onboarding</span>
+      </div>
+      <div class="case-right">
+        <h3 class="case-title">온보딩 구조 재설계로<br>현장 독립 시점을 10개월→4개월로 단축</h3>
+
+        <div class="case-section">
+          <div class="case-section-label">진단</div>
+          <div class="case-section-body">
+            신규 입사자가 커피 한 잔을 독립적으로 완성하기까지 평균 10개월이 소요됐고, 직무 교육 이후 실전 투입 전 공백 기간에 조기 이탈이 집중 발생하고 있었습니다. 현장 데이터와 인터뷰를 통해 원인을 분석한 결과, 문제는 교육의 부족이 아니라 <strong>교육–실행–피드백이 단절된 구조</strong>에 있었습니다. 도제식 문화 속에서 리더의 승인이 곧 실행 기준이 되는 구조가 학습 속도를 저해하고 있었습니다.
+          </div>
+        </div>
+
+        <div class="case-section">
+          <div class="case-section-label">계획 및 실행</div>
+          <div class="case-section-body">
+            본사 주도의 일회성 교육을 줄이고, 현장에서 스스로 학습하고 팀의 도움을 받을 수 있도록 온보딩을 <strong>3–3–2일 / 월 단위 순환 구조</strong>로 재설계했습니다. 동시에 리더십 교육을 병행해 리더의 역할을 '가르치는 사람'에서 '성장을 돕는 코치'로 전환하고, 각 과정마다 멘토를 지정해 특정 개인이 아닌 팀 전체가 코치하는 구조를 만들었습니다.
+          </div>
+        </div>
+
+        <div class="case-result">
+          <div class="case-result-label">결과</div>
+          <div class="case-result-body">
+            신규 입사자의 현장 독립 시점이 평균 10개월에서 4개월로 단축(60% 단축)되었고, 개인 역량 차이에 따른 성과 편차가 구조적으로 완화되었습니다. 연간 200명 이상의 신규 인력이 즉시 실전 투입 가능한 시스템을 확보했습니다.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 3: 현장-본사 간극 -->
+    <div class="case-item" id="systems" data-animate>
+      <div class="case-left">
+        <div class="case-num">03</div>
+        <span class="case-tag">L&amp;D · Systems</span>
+      </div>
+      <div class="case-right">
+        <h3 class="case-title">현장과 본사의 간극을 줄이는<br>교육 추적 구조 설계</h3>
+
+        <div class="case-section">
+          <div class="case-section-label">진단</div>
+          <div class="case-section-body">
+            본사에서 설계한 교육이 현장에서 실제로 작동하는지 확인하는 구조가 없었습니다. 현장 리더마다 교육을 해석하는 방식이 달랐고, 표준화된 기준 없이 운영되어 매장별 품질 편차가 발생하고 있었습니다. 현장 방문과 인터뷰를 통해 <strong>본사 교육의 현장 적용률과 실제 실행 간 갭</strong>을 측정했습니다.
+          </div>
+        </div>
+
+        <div class="case-section">
+          <div class="case-section-label">계획 및 실행</div>
+          <div class="case-section-body">
+            직무별 기술 영상과 현장 교육 가이드를 표준화해, 리더가 자체적으로 교육을 운영할 수 있는 구조를 만들었습니다. 동시에 <strong>교육 실행 현황을 추적하는 체계</strong>를 설계해, 현장 실행 데이터를 주기적으로 수집하고 커리큘럼 개선에 반영하는 순환 구조를 구축했습니다.
+          </div>
+        </div>
+
+        <div class="case-result">
+          <div class="case-result-label">결과</div>
+          <div class="case-result-body">
+            교육–실행–개선이 순환되는 조직 학습 구조가 자리잡혔습니다. 대규모 인원에도 동일한 교육 품질이 유지되는 반복 가능한 시스템을 확보했으며, 현장 피드백이 다음 커리큘럼 설계에 직접 반영되는 체계가 작동하기 시작했습니다.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ITERATION -->
+<section class="failure" id="iteration">
+  <p class="section-label">Iteration</p>
+  <h2 class="section-title" style="color:#f0ede6;">구조를 만들었는데<br>아무도 쓰지 않았을 때</h2>
+  <div class="failure-grid">
+    <div class="failure-card" data-animate>
+      <div class="failure-card-label">무슨 일이 있었나</div>
+      <div class="failure-card-body">
+        현장에서 발생하는 클레임을 본사가 체계적으로 취합할 수 있도록 보고 구조를 설계했습니다. 팀즈로 파일을 공유하는 방식이었는데, 실제 클레임 발생 건수 대비 <span class="failure-card-highlight">취합된 파일 수는 현저히 적었습니다.</span> 방법을 여러 번 상세히 안내했지만 결과는 달라지지 않았습니다.
+      </div>
+    </div>
+    <div class="failure-card" data-animate style="transition-delay: 0.15s;">
+      <div class="failure-card-label">가설을 바꿨다</div>
+      <div class="failure-card-body">
+        처음엔 방법이 복잡해서라고 생각했습니다. 그런데 몇 번을 설명해도 달라지지 않자 가설을 바꿨습니다. <span class="failure-card-highlight">"왜 해야 하는지를 납득하지 못한 것 아닐까?"</span> 방식의 문제가 아니라, 이유가 전달되지 않은 것이 문제라고 봤습니다.
+      </div>
+    </div>
+    <div class="failure-card" data-animate style="transition-delay: 0.3s;">
+      <div class="failure-card-label">검증과 결과</div>
+      <div class="failure-card-body">
+        보고 방법 대신 <span class="failure-card-highlight">이 구조가 왜 필요한지, 데이터가 어디에 쓰이는지</span>를 먼저 설명하는 방식으로 바꿨습니다. 보고서 취합률이 눈에 띄게 높아졌습니다. 실행을 막는 건 복잡성이 아니라 납득의 부재였습니다.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <p class="section-label">Contact</p>
+  <h2 class="section-title">컬처를 구조로 만드는<br>여정을 함께하고 싶습니다</h2>
+  <p class="contact-desc">
+    구성원들이 높은 몰입감과 팀워크를 경험할 수 있도록,<br>
+    비즈니스 맥락을 토대로 조직의 응집력을 만들어가겠습니다.
+  </p>
+  <div class="contact-links">
+    <a href="mailto:bobsemi@me.com" class="contact-link primary">이메일 보내기</a>
+    <a href="http://www.linkedin.com/in/samkive" target="_blank" class="contact-link secondary">LinkedIn</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>박세미 · Culture Business Partner</span>
+  <span>© 2026</span>
+</footer>
+
+<script>
+// NAV scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
