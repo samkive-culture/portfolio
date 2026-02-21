@@ -15,7 +15,7 @@
   --bg2: #f0ede6;
   --text: #181818;
   --muted: #999;
-  --accent: #C62917; /* 이미지에서 추출한 레드 */
+  --accent: #C62917; /* 테라로사 빨강 */
   --accent-light: #fdf2f1;
   --line: rgba(0,0,0,0.08);
   --serif: 'Noto Serif KR', serif;
@@ -33,18 +33,17 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── NAV: 이름/탭 2단 구성 ── */
 nav {
-  position: fixed; 
+  position: fixed; /* 항상 위에 */
   top: 0; 
   left: 0; 
   right: 0; 
-  z-index: 999; /* 다른 요소보다 항상 위에 있도록 높임 */
+  z-index: 999; 
   display: flex; 
   flex-direction: column; 
   align-items: flex-start; 
   padding: 1.2rem 7vw;
-  background: rgba(247,245,240,0.92); /* 배경을 살짝 투명하게 해서 뒤가 비치게 함 */
+  background: rgba(247,245,240,0.92); 
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
 }
@@ -56,7 +55,7 @@ nav {
   font-size: 1.1rem; 
   font-weight: 600; 
   letter-spacing: 0.04em;
-  cursor: pointer; /* 마우스 올리면 손가락 모양으로 변경 */
+  cursor: pointer; /* 마우스 올리면 손가락 모양으로 */
 }
 
 .nav-links { display: flex; gap: 2rem; flex-wrap: wrap; }
@@ -66,7 +65,6 @@ nav {
 }
 .nav-links a:hover { color: var(--accent); }
 
-/* ── HERO: 텍스트 짤림 및 볼드 처리 ── */
 .hero {
   min-height: 100vh;
   display: flex; 
@@ -84,7 +82,7 @@ nav {
   font-family: var(--serif);
   font-size: clamp(2.2rem, 6vw, 5.2rem);
   font-weight: 300; line-height: 1.15; letter-spacing: -0.02em;
-  word-break: keep-all; /* 한글 줄바꿈 최적화 */
+  word-break: keep-all; 
   opacity: 0; animation: fadeUp 0.8s 0.5s ease forwards;
 }
 .hero-title em { font-style: normal; font-weight: 700; color: var(--accent); }
@@ -278,9 +276,9 @@ footer {
   .onboarding { padding-top: 9rem !important;}
   .systems { padding-top: 9rem !important;}
   .hero-title {
-    font-size: 1.8rem; /* 모바일 화면에 맞춘 크기 */
+    font-size: 1.8rem;
     line-height: 1.4;
-    word-break: keep-all; /* 단어가 끊기지 않게 줄바꿈 */
+    word-break: keep-all;
   }
   .about-grid { grid-template-columns: 1fr; gap: 3rem; }
   .case-item { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -293,7 +291,7 @@ footer {
 </head>
 <body>
 
-<!-- NAV -->
+<!-- NAVIGATION -->
 <nav id="nav">
   <div class="nav-top">
     <a href="#top" class="nav-name" style="text-decoration: none; color: inherit;">박세미</a>
@@ -380,12 +378,12 @@ footer {
 <section class="cases" id="cases">
   <div class="cases-header">
     <p class="section-label">Selected Cases</p>
-    <h2 class="section-title">진단하고, 설계하고,<br>측정했습니다</h2>
+    <h2 class="section-title">진단하고, 가설을 세우고,<br>검증했습니다</h2>
   </div>
 
   <div class="case-list">
 
-    <!-- CASE 1: 조직문화 내재화 -->
+    <!-- CASE 1: 조직문화 -->
     <div class="case-item" id="culture" data-animate>
       <div class="case-left">
         <div class="case-num">01</div>
@@ -484,7 +482,7 @@ footer {
   </div>
 </section>
 
-<!-- ITERATION -->
+<!-- 실패한 경험 -->
 <section class="failure" id="iteration">
   <p class="section-label">Iteration</p>
   <h2 class="section-title" style="color:#f0ede6;">구조를 만들었는데<br>아무도 쓰지 않았을 때</h2>
@@ -524,14 +522,14 @@ footer {
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- 꼬리말 -->
 <footer>
   <span>박세미 · Culture Business Partner</span>
   <span>© 2026</span>
 </footer>
 
 <script>
-// NAV scroll effect
+// Scroll effect
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 40);
