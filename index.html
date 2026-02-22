@@ -1,301 +1,28 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>박세미 — Culture Business Partner</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&display=block" rel="stylesheet">
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --bg: #f7f5f0;
-  --bg2: #f0ede6;
-  --text: #181818;
-  --muted: #999;
-  --accent: #C62917; /* 테라로사 빨강 */
-  --accent-light: #fdf2f1;
-  --line: rgba(0,0,0,0.08);
-  --serif: 'Noto Serif KR', serif;
-  --sans: 'Noto Sans KR', sans-serif;
-}
-
-html { scroll-behavior: smooth;
-scroll-padding-top: 4.5rem;  }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--sans);
-  font-weight: 300;
-  line-height: 1.85;
-  -webkit-font-smoothing: antialiased;
-}
-
-nav {
-  position: fixed; /* 항상 위에 */
-  top: 0; 
-  left: 0; 
-  right: 0; 
-  z-index: 999; 
-  display: flex; 
-  flex-direction: column; 
-  align-items: flex-start; 
-  padding: 1.2rem 7vw;
-  background: rgba(247,245,240,0.92); 
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--line);
-}
-
-
-.nav-top { width: 100%; margin-bottom: 0.8rem; }
-.nav-name { 
-  font-family: var(--serif); 
-  font-size: 1.1rem; 
-  font-weight: 600; 
-  letter-spacing: 0.04em;
-  cursor: pointer; /* 마우스 올리면 손가락 모양으로 */
-}
-
-.nav-links { display: flex; gap: 2rem; flex-wrap: wrap; }
-.nav-links a {
-  font-size: 0.78rem; color: var(--muted); text-decoration: none;
-  letter-spacing: 0.08em; transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--accent); }
-
-.hero {
-  min-height: 100vh;
-  display: flex; 
-  flex-direction: column; 
-  justify-content: flex-end;
-  padding: 9rem 7vw 8vw;
-}
-
-.hero-eyebrow {
-  font-size: 0.75rem; letter-spacing: 0.18em; color: var(--muted);
-  text-transform: uppercase; margin-bottom: 2rem;
-  opacity: 0; animation: fadeUp 0.7s 0.3s ease forwards;
-}
-.hero-title {
-  font-family: var(--serif);
-  font-size: clamp(2.2rem, 6vw, 5.2rem);
-  font-weight: 300; line-height: 1.15; letter-spacing: -0.02em;
-  word-break: keep-all; 
-  opacity: 0; animation: fadeUp 0.8s 0.5s ease forwards;
-}
-.hero-title em { font-style: normal; font-weight: 700; color: var(--accent); }
-.hero-desc {
-  margin-top: 2.8rem; max-width: 52ch; font-size: 1.05rem;
-  color: #444; line-height: 1.9;
-  opacity: 0; animation: fadeUp 0.8s 0.7s ease forwards;
-}
-.hero-stat-row {
-  display: flex; gap: 3.5rem; margin-top: 4rem;
-  opacity: 0; animation: fadeUp 0.8s 0.9s ease forwards;
-  padding-top: 2.5rem; border-top: 1px solid var(--line);
-}
-.hero-stat-num {
-  font-family: var(--serif); font-size: 2.4rem; font-weight: 300;
-  letter-spacing: -0.02em; color: var(--accent);
-}
-.hero-stat-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.04em; margin-top: 0.2rem; }
-
-/* ── SECTION BASE ── */
-section { padding: 6rem 7vw 9rem; }
-.section-label {
-  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 1rem;
-}
-.section-title {
-  font-family: var(--serif);
-  font-size: clamp(1.8rem, 3.5vw, 3rem);
-  font-weight: 300; line-height: 1.2;
-  letter-spacing: -0.01em;
-}
-
-/* ── ABOUT ── */
-
-.about { 
-  background: var(--bg); 
-  border-top: 1px solid var(--line); 
-  padding-top: 3rem !important;
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  margin-top: 4rem;
-  align-items: start;
-}
-.about-body { font-size: 1rem; color: #3a3a3a; }
-.about-body p + p { margin-top: 1.4rem; }
-.about-body strong { font-weight: 500; color: var(--text); }
-.about-aside {}
-.skill-block + .skill-block { margin-top: 2.2rem; }
-.skill-name {
-  font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em;
-  text-transform: uppercase; margin-bottom: 0.4rem;
-}
-.skill-desc { font-size: 0.88rem; color: #555; line-height: 1.7; }
-
-/* ── CASES ── */
-.cases { background: var(--bg2); border-top: 1px solid var(--line); }
-.cases-header { margin-bottom: 5rem; }
-.case-list { display: flex; flex-direction: column; gap: 0; }
-
-.case-item {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 4rem;
-  padding: 4.5rem 0;
-  border-top: 1px solid var(--line);
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.case-item.visible { opacity: 1; transform: translateY(0); }
-
-.case-left {}
-.case-num {
-  font-family: var(--serif);
-  font-size: 4rem; font-weight: 300;
-  color: rgba(0,0,0,0.08);
-  line-height: 1;
-  margin-bottom: 1.5rem;
-}
-.case-tag {
-  display: inline-block;
-  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
-  padding: 0.3rem 0.8rem;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  border-radius: 2px;
-}
-
-.case-right {}
-.case-title {
-  font-family: var(--serif);
-  font-size: clamp(1.3rem, 2.2vw, 1.85rem);
-  font-weight: 400; line-height: 1.25;
-  margin-bottom: 2.5rem;
-}
-
-.case-section { margin-bottom: 2rem; }
-.case-section-label {
-  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 0.6rem; font-weight: 400;
-}
-.case-section-body { font-size: 0.95rem; color: #3a3a3a; line-height: 1.85; }
-
-.case-result {
-  margin-top: 2.5rem;
-  padding: 1.8rem 2rem;
-  background: var(--accent-light);
-  border-left: 3px solid var(--accent);
-  border-radius: 0 4px 4px 0;
-}
-.case-result-label {
-  font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 0.5rem; font-weight: 500;
-}
-.case-result-body { font-size: 0.92rem; color: #1a3a7a; line-height: 1.8; }
-
-/* ── FAILURE ── */
-.failure { background: #1a1a1a; border-top: 1px solid #333; }
-.failure { padding-top: 6rem !important; }
-.failure .section-label { color: #666; }
-.failure .section-title { color: #f0ede6; }
-.failure-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 3rem;
-  margin-top: 4rem;
-}
-.failure-card {
-  padding: 2.5rem;
-  border: 1px solid #2a2a2a;
-  border-radius: 4px;
-  opacity: 0; transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.failure-card.visible { opacity: 1; transform: translateY(0); }
-.failure-card-label {
-  font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: #666; margin-bottom: 1rem;
-}
-.failure-card-body { font-size: 0.9rem; color: #bbb; line-height: 1.85; }
-.failure-card-highlight { color: #f0ede6; font-weight: 400; }
-
-/* ── CONTACT ── */
-.contact { background: var(--bg); border-top: 1px solid var(--line); text-align: center; }
-.contact .section-title { margin: 1.5rem auto 0; max-width: 18ch; }
-.contact-desc { margin: 2rem auto 0; max-width: 44ch; color: #555; font-size: 0.98rem; }
-.contact-links { display: flex; justify-content: center; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; }
-.contact-link {
-  display: inline-block;
-  padding: 0.85rem 2.2rem;
-  font-size: 0.85rem; letter-spacing: 0.06em;
-  text-decoration: none;
-  border-radius: 2px;
-  transition: all 0.2s;
-}
-.contact-link.primary {
-  background: var(--text); color: var(--bg);
-}
-.contact-link.primary:hover { background: var(--accent); }
-.contact-link.secondary {
-  border: 1px solid var(--line); color: var(--text);
-}
-.contact-link.secondary:hover { border-color: var(--text); }
-
-/* ── FOOTER ── */
-footer {
-  padding: 2.5rem 7vw;
-  border-top: 1px solid var(--line);
-  display: flex; justify-content: space-between; align-items: center;
-  font-size: 0.75rem; color: var(--muted);
-}
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── RESPONSIVE ── */
-@media (max-width: 768px) {
-  nav { padding: 1rem 5vw; }
-  .nav-links { gap: 1.4rem; }
-  section { padding: 6rem 5vw; }
-  .hero { padding: 10rem 5vw 12vw; }
-  .about { padding-top: 6rem !important;}
-  .culture { padding-top: 9rem !important;}
-  .onboarding { padding-top: 9rem !important;}
-  .systems { padding-top: 9rem !important;}
-  .hero-title {
-    font-size: 1.8rem;
-    line-height: 1.4;
-    word-break: keep-all;
-  }
-  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .case-item { grid-template-columns: 1fr; gap: 1.5rem; }
-  .case-num { font-size: 2.5rem; }
-  .failure-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-  .hero-stat-row { gap: 2rem; flex-wrap: wrap; }
-  footer { flex-direction: column; gap: 0.8rem; text-align: center; }
-}
-</style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>박세미 — Culture Business Partner</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&display=block" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- NAVIGATION -->
 <nav id="nav">
-  <div class="nav-top">
-    <a href="#top" class="nav-name" style="text-decoration: none; color: inherit;">박세미</a>
-  </div>
+<div class="nav-top">
+  <a href="#top" class="nav-name" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+    <span>박세미</span>
+    <img src="images/terarosa-logo.png" alt="테라로사 로고" 
+         style="height: 1rem; width: auto; vertical-align: middle; margin-top: 2px;">
+  </a>
+
+</div>
   <div class="nav-links">
     <a href="#about">Architect</a>
     <a href="#culture">Culture</a>
@@ -528,23 +255,6 @@ footer {
   <span>© 2026</span>
 </footer>
 
-<script>
-// Scroll effect
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 40);
-});
-
-// Scroll reveal
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.12 });
-
-document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
-</script>
+<script src="script.js"></script>
 </body>
 </html>
