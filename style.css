@@ -105,7 +105,7 @@ nav {
 }
 .hero-stat-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.04em; margin-top: 0.2rem; }
 
-/* ── SECTION BASE ── */
+/* SECTION BASE */
 section { padding: 6rem 7vw 9rem; }
 .section-label {
   font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
@@ -118,7 +118,7 @@ section { padding: 6rem 7vw 9rem; }
   letter-spacing: -0.01em;
 }
 
-/* ── ABOUT ── */
+/* ABOUT */
 
 .about { 
   background: var(--bg); 
@@ -144,7 +144,7 @@ section { padding: 6rem 7vw 9rem; }
 }
 .skill-desc { font-size: 0.88rem; color: #555; line-height: 1.7; }
 
-/* ── CASES ── */
+/* CASES */
 .cases { background: var(--bg2); border-top: 1px solid var(--line); }
 .cases-header { margin-bottom: 5rem; }
 .case-list { display: flex; flex-direction: column; gap: 0; }
@@ -206,7 +206,7 @@ section { padding: 6rem 7vw 9rem; }
 }
 .case-result-body { font-size: 0.92rem; color: #1a3a7a; line-height: 1.8; }
 
-/* ── FAILURE ── */
+/* FAILURE */
 .failure { background: #1a1a1a; border-top: 1px solid #333; }
 .failure { padding-top: 6rem !important; }
 .failure .section-label { color: #666; }
@@ -232,7 +232,7 @@ section { padding: 6rem 7vw 9rem; }
 .failure-card-body { font-size: 0.9rem; color: #bbb; line-height: 1.85; }
 .failure-card-highlight { color: #f0ede6; font-weight: 400; }
 
-/* ── CONTACT ── */
+/* CONTACT */
 .contact { background: var(--bg); border-top: 1px solid var(--line); text-align: center; }
 .contact .section-title { margin: 1.5rem auto 0; max-width: 18ch; }
 .contact-desc { margin: 2rem auto 0; max-width: 44ch; color: #555; font-size: 0.98rem; }
@@ -254,7 +254,7 @@ section { padding: 6rem 7vw 9rem; }
 }
 .contact-link.secondary:hover { border-color: var(--text); }
 
-/* ── FOOTER ── */
+/* FOOTER */
 footer {
   padding: 2.5rem 7vw;
   border-top: 1px solid var(--line);
@@ -262,13 +262,13 @@ footer {
   font-size: 0.75rem; color: var(--muted);
 }
 
-/* ── ANIMATIONS ── */
+/* ANIMATIONS */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── RESPONSIVE ── */
+/* RESPONSIVE */
 @media (max-width: 768px) {
   nav { padding: 1rem 5vw; }
   .nav-links { gap: 1.4rem; }
@@ -289,4 +289,26 @@ footer {
   .failure-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .hero-stat-row { gap: 2rem; flex-wrap: wrap; }
   footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+}
+  /* 출력시 애니메이션 지우고 더 잘 보이게 하기 */
+@media print {
+  [data-animate], .case-item, .failure-card, .case-item.visible, .failure-card.visible {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+    display: block !important; 
+  }
+  .case-result {
+    background-color: #fdf2f1 !important; 
+    border-left: 4px solid #C62917 !important; 
+    -webkit-print-color-adjust: exact; 
+    print-color-adjust: exact;
+    margin-top: 20px !important;
+    padding: 15px !important;
+  }
+  /* 출력물이니까 텍스트 까맣게 */
+  .case-result-body {
+    color: #1a3a7a !important;
+  }
+  section { padding: 2rem 0 !important; page-break-inside: avoid; }
 }

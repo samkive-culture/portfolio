@@ -4,11 +4,15 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 40);
 });
 
-// Scroll reveal 스크롤 할 때 드러나게
+// Scroll reveal 스크롤 하면서 내용 띄우기
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
+      // 화면에 나타날 때 띄우기
       entry.target.classList.add('visible');
+    } else {
+      // 화면에서 사라지면 제거하기
+      entry.target.classList.remove('visible');
     }
   });
 }, { threshold: 0.12 });
