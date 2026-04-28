@@ -290,6 +290,7 @@ footer {
   .hero-stat-row { gap: 2rem; flex-wrap: wrap; }
   footer { flex-direction: column; gap: 0.8rem; text-align: center; }
 }
+
   /* 출력시 애니메이션 지우고 더 잘 보이게 하기 */
 @media print {
   [data-animate], .case-item, .failure-card, .case-item.visible, .failure-card.visible {
