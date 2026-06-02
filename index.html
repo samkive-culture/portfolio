@@ -1,53 +1,532 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>박세미 — Culture / L&D</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&display=block" rel="stylesheet">
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>박세미 — Culture / L&D</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&display=block" rel="stylesheet">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+
+  <style>
+    /* ─── RESET & BASE ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #f7f5f0;
+      --bg2:         #f0ede6;
+      --bg3:         #eceae3;
+      --text:        #181818;
+      --muted:       #999;
+      --accent:      #C62917;
+      --accent-light:#fdf2f1;
+      --line:        rgba(0,0,0,0.08);
+      --serif:       'Noto Serif KR', serif;
+      --sans:        'Pretendard Variable', Pretendard, 'Noto Sans KR', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 5rem;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1.1rem 7vw;
+      background: rgba(247,245,240,0.94);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+
+    .nav-top { width: 100%; margin-bottom: 0.65rem; }
+    .nav-name {
+      font-family: var(--sans);
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-name img { height: 0.95rem; width: auto; margin-top: 1px; }
+
+    .nav-links { display: flex; gap: 1.8rem; flex-wrap: wrap; }
+    .nav-links a {
+      font-size: 0.76rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.07em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 9rem 7vw 8vw;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.73rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.3s ease forwards;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5.5vw, 3.4rem);
+      font-weight: 300;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      word-break: keep-all;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.5s ease forwards;
+    }
+    .hero-title em { font-style: normal; font-weight: 700; color: var(--accent); }
+
+    .hero-desc {
+      margin-top: 2.5rem;
+      max-width: 68ch;
+      font-size: 1.02rem;
+      color: #444;
+      line-height: 1.95;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.7s ease forwards;
+    }
+
+    .hero-stat-row {
+      display: flex;
+      gap: 3.5rem;
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--line);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.9s ease forwards;
+    }
+    .hero-stat-num {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+    }
+    .hero-stat-label {
+      font-size: 0.76rem;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+      margin-top: 0.25rem;
+      line-height: 1.6;
+    }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 7rem 7vw; }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 3.2vw, 2.8rem);
+      font-weight: 300;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+
+    /* ─── ABOUT ─── */
+    .about {
+      background: var(--bg);
+      border-top: 1px solid var(--line);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      margin-top: 4rem;
+      align-items: start;
+    }
+    .about-body { font-size: 0.98rem; color: #3a3a3a; }
+    .about-body p + p { margin-top: 1.4rem; }
+    .about-body strong { font-weight: 500; color: var(--text); }
+
+    .skill-block + .skill-block { margin-top: 2.2rem; }
+    .skill-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+    .skill-desc { font-size: 0.87rem; color: #555; line-height: 1.75; }
+
+    /* ─── CASES ─── */
+    .cases {
+      background: var(--bg2);
+      border-top: 1px solid var(--line);
+    }
+    .cases-header { margin-bottom: 5rem; }
+
+    .case-list { display: flex; flex-direction: column; }
+
+    .case-item {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 4rem;
+      padding: 5rem 0;
+      border-top: 1px solid var(--line);
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .case-item.visible { opacity: 1; transform: translateY(0); }
+    .case-item:last-child { border-bottom: 1px solid var(--line); }
+
+    .case-left { padding-top: 0.2rem; }
+    .case-num {
+      font-family: var(--serif);
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: rgba(0,0,0,0.07);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .case-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.75rem;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 2px;
+    }
+
+    .case-title {
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 2vw, 1.7rem);
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 2.8rem;
+    }
+
+    .case-section { margin-bottom: 2.2rem; }
+    .case-section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.65rem;
+      font-weight: 400;
+    }
+    .case-section-body {
+      font-size: 0.94rem;
+      color: #3a3a3a;
+      line-height: 1.9;
+    }
+    .case-section-body ul { list-style: none; padding: 0; }
+    .case-section-body ul li { margin-bottom: 1.1rem; }
+    .case-section-body ul li:last-child { margin-bottom: 0; }
+
+    /* 결과 박스 */
+    .case-result {
+      margin-top: 2.8rem;
+      padding: 1.8rem 2rem;
+      background: var(--accent-light);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 4px 4px 0;
+    }
+    .case-result-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+      font-weight: 500;
+    }
+    .case-result-body {
+      font-size: 0.91rem;
+      color: #1a3070;
+      line-height: 1.85;
+    }
+
+    /* 이미지 */
+    .case-images {
+      display: flex;
+      gap: 14px;
+      margin: 2.2rem 0 0.6rem;
+    }
+    .case-images.single { display: block; }
+
+    .case-img-box {
+      flex: 1;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .case-images.single .case-img-box { max-width: 100%; }
+
+    .case-img-box img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .img-caption {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.6rem;
+      line-height: 1.5;
+    }
+
+    /* 온보딩 사이트 서브케이스 박스 */
+    .sub-case {
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px dashed rgba(0,0,0,0.1);
+    }
+    .sub-case-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .sub-case-label::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 1px;
+      background: var(--accent);
+    }
+    .sub-case-title {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 400;
+      line-height: 1.4;
+      margin-bottom: 1.6rem;
+      color: var(--text);
+    }
+
+    /* 온보딩 사이트 기능 태그 */
+    .feature-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.2rem 0;
+    }
+    .feature-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      padding: 0.25rem 0.7rem;
+      background: var(--bg3);
+      border-radius: 2px;
+      color: #444;
+    }
+
+    /* ─── RETROSPECTIVE ─── */
+    .retrospective {
+      background: #1c1c1c;
+      border-top: 1px solid #2a2a2a;
+    }
+    .retrospective .section-label { color: #555; }
+    .retrospective .section-title { color: #f0ede6; }
+    .retrospective .case-section-label { color: #555; }
+    .retrospective .case-section-body { color: #aaa; }
+    .retrospective .case-section-body strong { color: #e8e4dc; font-weight: 400; }
+    .retrospective .case-result {
+      background: rgba(198,41,23,0.08);
+      border-color: var(--accent);
+    }
+    .retrospective .case-result-body { color: #c8c0b0; }
+    .retrospective .case-result-label { color: var(--accent); }
+
+    .retro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+    .retro-block {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .retro-block.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── CONCLUSION ─── */
+    .conclusion {
+      background: var(--bg);
+      border-top: 1px solid var(--line);
+      padding: 7rem 7vw;
+    }
+    .conclusion-inner {
+      max-width: 64ch;
+    }
+    .conclusion .section-title { margin-bottom: 2rem; }
+    .conclusion-desc {
+      font-size: 0.98rem;
+      color: #3a3a3a;
+      line-height: 2;
+    }
+    .conclusion-desc strong { font-weight: 500; color: var(--text); }
+
+    /* ─── CONTACT ─── */
+    .contact {
+      background: var(--bg2);
+      border-top: 1px solid var(--line);
+      text-align: center;
+      padding: 7rem 7vw;
+    }
+    .contact .section-title { margin: 1.2rem auto 0; max-width: 22ch; }
+    .contact-desc {
+      margin: 2rem auto 0;
+      max-width: 46ch;
+      color: #555;
+      font-size: 0.96rem;
+      line-height: 1.9;
+    }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+    .contact-link {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      font-size: 0.83rem;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .contact-link.primary { background: var(--text); color: var(--bg); }
+    .contact-link.primary:hover { background: var(--accent); }
+    .contact-link.secondary { border: 1px solid var(--line); color: var(--text); }
+    .contact-link.secondary:hover { border-color: var(--text); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 2.2rem 7vw;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .case-item { grid-template-columns: 1fr; gap: 1.2rem; }
+      .case-num { font-size: 2.5rem; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 5vw; }
+      .nav-links { gap: 1.3rem; }
+      section { padding: 5rem 5vw; }
+      .hero { padding: 9rem 5vw 12vw; }
+      .hero-title { font-size: 1.75rem; line-height: 1.45; }
+      .hero-stat-row { gap: 2rem; flex-wrap: wrap; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .retro-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .case-images { flex-direction: column; }
+      footer { flex-direction: column; gap: 0.6rem; text-align: center; }
+    }
+
+    @media print {
+      .case-item, .retro-block {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      .case-result {
+        background-color: #fdf2f1 !important;
+        border-left: 3px solid #C62917 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      section { padding: 2rem 0 !important; page-break-inside: avoid; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- NAVIGATION -->
+<!-- ─── NAV ─── -->
 <nav id="nav">
-<div class="nav-top">
-  <a href="#top" class="nav-name" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
-    <span>박세미</span>
-    <img src="images/terarosa-logo.png" alt="테라로사 로고" 
-         style="height: 1rem; width: auto; vertical-align: middle; margin-top: 2px;">
-  </a>
-
-</div>
-<div class="nav-links">
-  <a href="#about">About</a>
-  <a href="#culture">Culture</a>
-  <a href="#onboarding">Onboarding</a>
-  <a href="#systems">L&D System</a>
-  <a href="#relations">Relations</a>
-  <a href="#retrospective">Retrospective</a> 
-  <a href="#conclusion">Contact</a>
-</div>
+  <div class="nav-top">
+    <a href="#top" class="nav-name">
+      <span>박세미</span>
+      <img src="images/terarosa-logo.png" alt="테라로사 로고">
+    </a>
+  </div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#culture">Culture</a>
+    <a href="#onboarding">Onboarding</a>
+    <a href="#systems">L&amp;D System</a>
+    <a href="#relations">Relations</a>
+    <a href="#retrospective">Retrospective</a>
+    <a href="#contact">Contact</a>
+  </div>
 </nav>
 
 <div id="top"></div>
 
-
-
-<!-- HERO -->
+<!-- ─── HERO ─── -->
 <section class="hero">
- 
+  <p class="hero-eyebrow">Culture &amp; L&D Portfolio · 박세미</p>
   <h1 class="hero-title">
-    문화를 <em>공통의 언어</em>로 정렬하고,<br>스케일업을 위한 <em>시스템</em>으로 작동시킵니다.
+    문화를 <em>공통의 언어</em>로 정렬하고,<br>
+    스케일업을 위한 <em>시스템</em>으로 작동시킵니다.
   </h1>
   <p class="hero-desc">
-    저는 조직의 병목을 데이터와 현장의 목소리로 진단하고,<br>
-    구성원 모두가 하나의 미션(Mission)을 향해 뛸 수 있도록 구조화합니다.<br>
-    현장 실무 3년, Culture & L&D 기획 4년.<br>
+    조직의 병목을 데이터와 현장의 목소리로 진단하고,<br>
+    구성원 모두가 하나의 미션을 향해 뛸 수 있도록 구조화합니다.<br>
+    현장 실무 3년, Culture &amp; L&D 기획 4년.<br>
     컬처는 선언이 아니라 실무에서 완벽하게 작동하는 시스템이어야 함을 증명해 왔습니다.
   </p>
   <div class="hero-stat-row">
@@ -57,16 +536,16 @@
     </div>
     <div class="hero-stat">
       <div class="hero-stat-num">124%</div>
-      <div class="hero-stat-label">온보딩 KPI 초과 달성<br>(97% 3개월 내 조기 랜딩)</div>
+      <div class="hero-stat-label">온보딩 KPI 초과 달성<br>(97% 조기 랜딩)</div>
     </div>
     <div class="hero-stat">
       <div class="hero-stat-num">7년</div>
-      <div class="hero-stat-label">현장 → 문화와 교육 설계<br>(테라로사 재직중)</div>
+      <div class="hero-stat-label">현장 → 문화·교육 설계<br>(테라로사 재직 중)</div>
     </div>
   </div>
-  
 </section>
 
+<!-- ─── ABOUT ─── -->
 <section class="about" id="about">
   <p class="section-label">About</p>
   <h2 class="section-title">동료의 자부심이 되는 기획자,<br>시스템으로 조직의 성장을 증명합니다</h2>
@@ -74,13 +553,13 @@
     <div class="about-body">
       <p>
         <strong>"박세미와 동료라서 참 든든하다."</strong><br>
-        제가 커리어를 시작한 첫날부터 지금까지 지켜온 단 하나의 목표입니다. 저에게 '일'이란 단순히 과업을 수행하는 것이 아니라, 함께 일하는 동료들이 저를 보며 자부심을 느끼고 안심할 수 있는 '단단한 성벽'이 되어주는 과정입니다. 
-      </p>
-     <p>
-        이 진심은 압도적인 성장의 동력이 되었습니다. 글로벌 벤더사(한솔섬유)에서 복잡한 공급망을 관리하며 배운 '프로세스 최적화'의 감각은, 테라로사에서 바리스타를 거쳐 사내 유일의 현장 출신 '메인 교육 기획자'로 거듭나는 밑거름이 되었습니다. 8년의 시간 동안 저는 현장의 언어를 조직의 시스템으로 번역하며, <strong>온보딩 KPI 124% 달성(96명 조기 안착)</strong>과 <strong>전사 브랜드 매뉴얼 단독 집필</strong>이라는 결과로 동료들에게 든든함을 증명해 왔습니다.
+        커리어를 시작한 첫날부터 지금까지 지켜온 단 하나의 목표입니다. 저에게 '일'이란 단순히 과업을 수행하는 것이 아니라, 함께 일하는 동료들이 저를 보며 자부심을 느끼고 안심할 수 있는 단단한 성벽이 되어주는 과정입니다.
       </p>
       <p>
-        저는 멈춰있는 기획에 만족하지 않습니다. 영상 편집(Premiere Pro)을 독학해 12편의 직무 교육 콘텐츠를 제작하고, 직접 코딩(HTML/CSS/JS)하여 사내 웹 소식지를 빌드업합니다. 글로벌 파트너와의 협업부터 IT 툴을 활용한 문화 전파까지, <strong>"세미 님이라면 반드시 되게 만든다"</strong>는 신뢰를 바탕으로 조직의 빈칸을 가장 전문적인 방법으로 채워나갑니다.
+        이 진심은 압도적인 성장의 동력이 되었습니다. 글로벌 벤더사에서 복잡한 공급망을 관리하며 배운 '프로세스 최적화'의 감각은, 테라로사에서 바리스타를 거쳐 사내 유일의 현장 출신 메인 교육 기획자로 거듭나는 밑거름이 되었습니다. 8년의 시간 동안 현장의 언어를 조직의 시스템으로 번역하며, <strong>온보딩 KPI 124% 달성</strong>과 <strong>전사 브랜드 매뉴얼 단독 집필</strong>이라는 결과로 증명해 왔습니다.
+      </p>
+      <p>
+        저는 멈춰있는 기획에 만족하지 않습니다. 영상 편집(Premiere Pro)을 독학해 12편의 직무 교육 콘텐츠를 제작하고, 직접 코딩(HTML/CSS/JS)하여 사내 웹 소식지와 온보딩 사이트를 구축합니다. <strong>"세미 님이라면 반드시 되게 만든다"</strong>는 신뢰를 바탕으로 조직의 빈칸을 가장 전문적인 방법으로 채워나갑니다.
       </p>
     </div>
     <div class="about-aside">
@@ -88,9 +567,9 @@
         <div class="skill-name">Reliable Partner</div>
         <div class="skill-desc">동료가 자부심을 느끼는 '든든한 동료'를 지향합니다. 책임감을 넘어, 존재만으로 조직에 안정감을 주는 시스템 기획자가 되고자 합니다.</div>
       </div>
-     <div class="skill-block">
+      <div class="skill-block">
         <div class="skill-name">Domain Mastery</div>
-        <div class="skill-desc">글로벌 QC/구매부터 현장 바리스타, 전사 교육 기획까지. 밑바닥부터 쌓아올린 실무 경험으로 도메인에 대한 깊은 이해와 문제 해결력을 갖췄습니다.</div>
+        <div class="skill-desc">글로벌 QC·구매부터 현장 바리스타, 전사 교육 기획까지. 밑바닥부터 쌓아올린 실무 경험으로 도메인에 대한 깊은 이해와 문제 해결력을 갖췄습니다.</div>
       </div>
       <div class="skill-block">
         <div class="skill-name">Zero-to-One Execution</div>
@@ -98,13 +577,13 @@
       </div>
       <div class="skill-block">
         <div class="skill-name">Global Communication</div>
-        <div class="skill-desc">해외 파트너십 관리부터 글로벌 교육 퍼실리테이팅까지. 다양한 문화적 배경을 가진 이해관계자들 사이의 미션(Mission)을 정렬합니다.</div>
+        <div class="skill-desc">해외 파트너십 관리부터 글로벌 교육 퍼실리테이팅까지. 다양한 문화적 배경을 가진 이해관계자들 사이의 미션을 정렬합니다.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CASES -->
+<!-- ─── CASES ─── -->
 <section class="cases" id="cases">
   <div class="cases-header">
     <p class="section-label">Selected Cases</p>
@@ -113,68 +592,65 @@
 
   <div class="case-list">
 
-    <!-- CASE 1: 조직문화 -->
-   <div class="case-item" id="culture" data-animate>
+    <!-- CASE 01 · CULTURE -->
+    <div class="case-item" id="culture" data-animate>
       <div class="case-left">
         <div class="case-num">01</div>
-        <span class="case-tag">Culture & Alignment</span>
+        <span class="case-tag">Culture &amp; Alignment</span>
       </div>
       <div class="case-right">
-        <h3 class="case-title">무형의 문화를 '공통의 언어'로 명문화하고,<br>전사의 미션(Mission)으로 정렬하다</h3>
+        <h3 class="case-title">무형의 문화를 '공통의 언어'로 명문화하고,<br>전사의 미션으로 정렬하다</h3>
 
         <div class="case-section">
           <div class="case-section-label">진단</div>
           <div class="case-section-body">
-            조직이 빠르게 스케일업(Scale-up)하는 과정에서 <strong>"우리다운 정체성이 희미해진다", "부서마다 일하는 기준이 다르다"</strong>는 현장의 VOC가 쏟아졌습니다. 원인을 딥다이브한 결과, 가장 큰 병목은 기존의 문화가 명문화된 텍스트가 아닌 '개인의 감'이나 '상명하복식 분위기'에 의존하고 있다는 점이었습니다. 저는 이 문제를 단순한 소통 오류가 아닌, <strong>조직의 미션을 하나로 묶어줄 '공통의 언어'와 '시스템'의 부재</strong>로 정의했습니다.
+            조직이 빠르게 스케일업하는 과정에서 <strong>"우리다운 정체성이 희미해진다", "부서마다 일하는 기준이 다르다"</strong>는 현장의 VOC가 쏟아졌습니다. 딥다이브한 결과, 가장 큰 병목은 기존 문화가 명문화된 텍스트가 아닌 '개인의 감'이나 '상명하복식 분위기'에 의존하고 있다는 점이었습니다. 이 문제를 단순한 소통 오류가 아닌, <strong>조직의 미션을 하나로 묶어줄 '공통의 언어'와 '시스템'의 부재</strong>로 정의했습니다.
           </div>
         </div>
-
 
         <div class="case-section">
           <div class="case-section-label">주도적 실행</div>
           <div class="case-section-body">
             <ul>
-              <strong>• 전사 통합 브랜드 매뉴얼 구축 (0 to 1):</strong> 추상적으로 떠돌던 브랜드 핵심 가치와 일하는 방식을 구체적인 텍스트로 정의하여 '브랜드 매뉴얼북' 창간호를 기획 및 총괄했습니다. 부서를 막론하고 누구나 책 한 권으로 조직의 미션을 직관적으로 이해할 수 있는 뼈대를 세웠습니다.<br><br>
-              <strong>• 웹 기반 사내 소식지 단독 런칭:</strong> 구성원 간의 비즈니스 정보 비대칭을 해소하기 위해, <strong>HTML/CSS/JS를 직접 독학하여</strong> 웹 기반의 사내 소식지 및 온보딩 대시보드를 구축하고 배포했습니다.<br><br>
-              <strong>• 수평적 소통 문화와 핵심 가치 내재화:</strong> 수직적 문화를 타파하고자 경영진과 협업해 사내 호칭을 '님'으로 단일화하는 캠페인을 온보딩에 도입했습니다. 교육자의 언어와 커리큘럼을 전면 개편하여 지시가 아닌 '핵심 가치'를 기반으로 소통하도록 이끌었습니다.
+              <li><strong>전사 통합 브랜드 매뉴얼 구축 (0 to 1)</strong> — 추상적으로 떠돌던 브랜드 핵심 가치와 일하는 방식을 구체적인 텍스트로 정의하여 '브랜드 매뉴얼북' 창간호를 기획 및 총괄했습니다. 부서를 막론하고 누구나 책 한 권으로 조직의 미션을 직관적으로 이해할 수 있는 뼈대를 세웠습니다.</li>
+              <li><strong>웹 기반 사내 소식지 단독 런칭</strong> — 구성원 간 비즈니스 정보 비대칭을 해소하기 위해, HTML/CSS/JS를 직접 독학하여 웹 기반 사내 소식지 및 온보딩 대시보드를 구축·배포했습니다.</li>
+              <li><strong>수평적 소통 문화 내재화</strong> — 경영진과 협업해 사내 호칭을 '님'으로 단일화하는 캠페인을 온보딩에 도입했습니다. 교육 언어와 커리큘럼을 전면 개편하여 지시가 아닌 '핵심 가치'를 기반으로 소통하도록 이끌었습니다.</li>
             </ul>
           </div>
         </div>
 
-        <div class="case-image-wrapper">
-          <div class="case-image-item">
-            <img src="images/culture1.jpg" alt="전사 통합 브랜드 매뉴얼북 표지">
+        <div class="case-images">
+          <div class="case-img-box">
+            <img src="images/culture1.jpg" alt="전사 통합 브랜드 매뉴얼북">
           </div>
-          <div class="case-image-item">
-            <img src="images/culture2.jpg" alt="HTML/CSS로 구축한 사내 소식지 스크린샷">
+          <div class="case-img-box">
+            <img src="images/culture2.jpg" alt="HTML/CSS로 구축한 사내 소식지">
           </div>
         </div>
-        <p class="image-caption">직접 기획/집필한 통합 매뉴얼북(좌) HTML/CSS로 구축한 사내 소식지(우)</p>
+        <p class="img-caption">직접 기획·집필한 통합 매뉴얼북 (좌) / HTML·CSS로 구축한 사내 소식지 (우)</p>
 
         <div class="case-result">
           <div class="case-result-label">결과 및 증명</div>
           <div class="case-result-body">
-            수동적이었던 현장에서 직책자를 제외한 일반 구성원들의 활발한 의견 개진이 증가하며 <strong>수평적인 커뮤니케이션 문화가 안착</strong>했습니다. 또한 온보딩 종료 서베이 결과, 절대다수의 구성원이 "스페셜티 커피 시장 내 우리 브랜드의 미션과 나의 역할을 명확히 이해했다"고 응답하며, <strong>흐려지던 조직의 정체성을 선명하게 얼라인(Align)</strong>하는 데 성공했습니다.
+            수동적이었던 현장에서 일반 구성원들의 활발한 의견 개진이 증가하며 <strong>수평적 커뮤니케이션 문화가 안착</strong>했습니다. 온보딩 종료 서베이 결과 절대다수가 "스페셜티 커피 시장 내 우리 브랜드의 미션과 나의 역할을 명확히 이해했다"고 응답하며, <strong>흐려지던 조직의 정체성을 선명하게 얼라인</strong>하는 데 성공했습니다.
           </div>
         </div>
-
-
       </div>
     </div>
 
-    <!-- CASE 2: 온보딩 -->
-  <div class="case-item" id="onboarding" data-animate>
+    <!-- CASE 02 · ONBOARDING -->
+    <div class="case-item" id="onboarding" data-animate>
       <div class="case-left">
         <div class="case-num">02</div>
-        <span class="case-tag">Onboarding & Growth</span>
+        <span class="case-tag">Onboarding &amp; Growth</span>
       </div>
       <div class="case-right">
-        <h3 class="case-title">도제식 온보딩의 병목(Bottleneck)을 제거해<br>현장 투입 시점을 10개월에서 4개월로 압축하다</h3>
+        <h3 class="case-title">도제식 온보딩의 병목을 제거해<br>현장 투입 시점을 10개월에서 4개월로 압축하다</h3>
 
         <div class="case-section">
           <div class="case-section-label">진단</div>
           <div class="case-section-body">
-            신규 입사자가 현장에서 독립적으로 업무를 수행하기까지 평균 10개월이 소요되었고, 실전 투입 전 대기 기간에 조기 이탈률이 급증하고 있었습니다. 데이터와 심층 인터뷰로 본질을 파고든 결과, 원인은 개인의 역량 부족이 아니라 <strong>'교육-실행-피드백이 단절된 구조'</strong>에 있었습니다. 특히 특정 리더의 승인이 곧 실행의 기준이 되는 <strong>'도제식 문화'가 조직 전체의 학습 속도를 늦추는 가장 큰 병목</strong>이었습니다.
+            신규 입사자가 현장에서 독립적으로 업무를 수행하기까지 평균 10개월이 소요되었고, 실전 투입 전 대기 기간에 조기 이탈률이 급증하고 있었습니다. 데이터와 심층 인터뷰로 본질을 파고든 결과, 원인은 개인의 역량 부족이 아니라 <strong>'교육-실행-피드백이 단절된 구조'</strong>에 있었습니다. 특정 리더의 승인이 곧 실행의 기준이 되는 <strong>'도제식 문화'가 조직 전체의 학습 속도를 늦추는 가장 큰 병목</strong>이었습니다.
           </div>
         </div>
 
@@ -182,9 +658,9 @@
           <div class="case-section-label">주도적 실행</div>
           <div class="case-section-body">
             <ul>
-              <strong>• 자기 주도적 학습 구조 설계:</strong> 본사 주도의 수동적이고 일회성인 교육을 과감히 줄이고, 현장에서 스스로 학습하며 팀의 지원을 받는 '3-3-2일 / 월 단위 순환 온보딩 아키텍처'를 단독으로 기획 및 설계했습니다.<br><br>
-              <strong>• 리더십 패러다임 전환:</strong> 리더의 역할을 '지시하고 가르치는 사람'에서 '성장을 돕는 코치(Coach)'로 전환하는 리더십 교육을 선제적으로 병행하여, 바뀐 시스템을 수용할 수 있는 현장 환경을 조성했습니다.<br><br>
-              <strong>• 시스템 기반의 코칭:</strong> 각 온보딩 단계별로 전담 멘토를 배치하여, 뛰어난 개인 한 명에 의존하는 것이 아닌 <strong>'팀 전체가 유기적으로 코칭하는 구조'</strong>를 정착시키고 메인 교육 실행을 주도했습니다.
+              <li><strong>자기 주도적 학습 구조 설계</strong> — 본사 주도의 수동적·일회성 교육을 줄이고, 현장에서 스스로 학습하며 팀의 지원을 받는 '3-3-2일 / 월 단위 순환 온보딩 아키텍처'를 단독으로 기획·설계했습니다.</li>
+              <li><strong>리더십 패러다임 전환</strong> — 리더의 역할을 '지시하고 가르치는 사람'에서 '성장을 돕는 코치'로 전환하는 리더십 교육을 선제적으로 병행하여, 바뀐 시스템을 수용할 수 있는 현장 환경을 조성했습니다.</li>
+              <li><strong>시스템 기반 코칭 구조</strong> — 온보딩 단계별로 전담 멘토를 배치하여, 뛰어난 개인 한 명에 의존하는 것이 아닌 <strong>'팀 전체가 유기적으로 코칭하는 구조'</strong>를 정착시키고 메인 교육 실행을 주도했습니다.</li>
             </ul>
           </div>
         </div>
@@ -192,153 +668,193 @@
         <div class="case-result">
           <div class="case-result-label">결과 및 증명</div>
           <div class="case-result-body">
-            현장 독립 시점을 평균 10개월에서 4개월로 <strong>무려 60% 단축</strong>시키며, 기존 월 1회이던 채용 과정을 월 2회로 확장할 수 있는 폭발적인 효율 개선을 이뤄냈습니다. 특히 <strong>전체 신규 입사자의 97%를 성공적으로 소프트랜딩(Soft-landing)</strong>시키는 성과를 거두며, <strong>2025년 온보딩 개인 KPI를 124% 초과 달성</strong>했습니다. 결과적으로 연간 200명 규모의 대규모 합류(Mass Onboarding)에도 즉각 대응 가능한 '확장 가능(Scalable) 시스템'을 성공적으로 구축했습니다.
+            현장 독립 시점을 평균 10개월에서 4개월로 <strong>60% 단축</strong>시키며, 기존 월 1회이던 채용 과정을 월 2회로 확장할 수 있는 효율 개선을 이뤄냈습니다. 전체 신규 입사자의 <strong>97%를 성공적으로 소프트랜딩</strong>시키며 <strong>2025년 온보딩 KPI 124% 초과 달성</strong>. 연간 200명 규모의 대규모 합류에도 즉각 대응 가능한 확장 가능한 시스템을 구축했습니다.
           </div>
         </div>
 
+        <!-- ── 서브케이스: 온보딩 사이트 ── -->
+        <div class="sub-case">
+          <div class="sub-case-label">심화 실행 · 온보딩 경험 설계</div>
+          <h4 class="sub-case-title">"좋은 회사야"라는 첫 경험을 설계하다 —<br>신규 입사자를 위한 온보딩 사이트 직접 구축</h4>
+
+          <div class="case-section">
+            <div class="case-section-label">왜 만들었나</div>
+            <div class="case-section-body">
+              온보딩 아키텍처를 정비했지만, 입사 첫날 신입 바리스타가 마주하는 정보 환경은 여전히 파편화되어 있었습니다. "어디서 뭘 봐야 하는지 모르겠다"는 피드백이 반복됐고, 이것이 초기 이탈의 보이지 않는 원인 중 하나임을 직감했습니다. 시스템이 아무리 잘 설계되어도, <strong>구성원이 처음 문을 두드리는 경험 자체가 따뜻하지 않으면 의미가 없다</strong>는 확신이 있었습니다.
+            </div>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-label">직접 만든 것</div>
+            <div class="case-section-body">
+              지난주부터 이번 주까지 HTML/CSS/JS로 신규 입사자 전용 온보딩 사이트를 단독 구축했습니다. 외주도, 별도 예산도 없이, 익힌 기술을 그대로 조직의 문제에 적용했습니다.
+              <div class="feature-tags">
+                <span class="feature-tag">브랜드 스토리 & 히스토리</span>
+                <span class="feature-tag">입사 전 체크리스트</span>
+                <span class="feature-tag">온보딩 로드맵 (주·월 단위)</span>
+                <span class="feature-tag">교육 일정 캘린더</span>
+                <span class="feature-tag">자주 묻는 질문(FAQ)</span>
+                <span class="feature-tag">담당자 연락처 허브</span>
+              </div>
+              디자인 방향은 하나였습니다. <strong>첫날의 낯선 긴장감이 "이 회사 괜찮다"는 안도감으로 바뀌는 경험</strong>. 정보 전달을 넘어 조직에 대한 신뢰와 소속감을 심어주는 첫 접점으로 기획했습니다.
+            </div>
+          </div>
+
+        <div class="case-images single">
+          <div class="case-img-box">
+            <img src="images/onboarding.JPEG" alt="온보딩 사이트">
+          </div>
+        </div>
+        <p class="img-caption">신규 입사자를 위한 온보딩 사이트</p>
+
+
+          <div class="case-result" style="margin-top: 1.8rem;">
+            <div class="case-result-label">연결되는 인사이트</div>
+            <div class="case-result-body">
+              이 사이트는 단순한 정보 허브가 아닙니다. <strong>'좋은 회사'의 첫인상은 제도가 아니라 경험에서 온다</strong>는 믿음의 실체화입니다. 온보딩 시스템을 설계한 사람이 그 경험의 첫 문까지 직접 만든다는 것 — 이것이 People & Culture 기획자로서 제가 증명하고 싶은 방식입니다.
+            </div>
+          </div>
+        </div>
+        <!-- ── /서브케이스 ── -->
+
       </div>
     </div>
 
-
-    <!-- CASE 3: 교육시스템 -->
-
+    <!-- CASE 03 · L&D SYSTEM -->
     <div class="case-item" id="systems" data-animate>
-  <div class="case-left">
-    <div class="case-num">03</div>
-    <span class="case-tag">L&D System & Optimization</span>
-  </div>
-  <div class="case-right">
-    <h3 class="case-title">파편화된 실무 경험을 '지식 자산'으로 구조화하고,<br>콘텐츠 기술을 활용해 교육의 한계치를 돌파하다</h3>
-
-    <div class="case-section">
-      <div class="case-section-label">진단</div>
-      <div class="case-section-body">
-        급격한 매장 확대 과정에서 부서별 공지사항은 파편화되었고, 리더마다 교육을 해석하는 방식이 달라 매장별 품질 편차가 심화되었습니다. 본사의 기획 의도와 현장의 실행 사이에는 <strong>치명적인 '구조적 갭(Gap)'</strong>이 존재했으며, 이를 해결하기 위해서는 텍스트를 넘어선 <strong>직관적인 학습 도구와 단일화된 운영 기준(SOP)</strong>이 절실했습니다.
+      <div class="case-left">
+        <div class="case-num">03</div>
+        <span class="case-tag">L&amp;D System &amp; Optimization</span>
       </div>
-    </div>
+      <div class="case-right">
+        <h3 class="case-title">파편화된 실무 경험을 '지식 자산'으로 구조화하고,<br>콘텐츠 기술로 교육의 한계치를 돌파하다</h3>
 
-
-    <div class="case-section">
-      <div class="case-section-label">주도적 실행</div>
-      <div class="case-section-body">
-        <ul>
-          <strong>• 미디어 기반 직무 교육 체계 구축 (0 to 1):</strong> 학습 효율 극대화를 위해 Premiere Pro를 독학하여 <strong>총 12편의 직무 교육 영상을 단독 기획·촬영·편집</strong>했습니다. 이 성과를 인정받아 사내 영상 콘텐츠 제작 담당자로 포지셔닝되었으며, 2026년 전사 시무식 영상 제작을 전담했습니다.<br><br>
-          <strong>• 운영 기준의 단일화 (SOP & Manual):</strong> 신규 리더의 빠른 적응을 위한 '점장 매뉴얼북' 제작에 참여하고, 전 부서의 실무 기준을 집대성한 <strong>'통합 직무 매뉴얼'을 백지상태에서 단독 집필</strong>했습니다.<br><br>
-          <strong>• 애자일(Agile) 피드백 루프 설계:</strong> 매뉴얼 배포에 그치지 않고 현장의 피드백을 실시간 수렴하여 콘텐츠를 즉각 업데이트하는 '순환형 학습 구조'를 정착시켰습니다.
-        </ul>
-      </div>
-    </div>
-
-
-            <div class="case-image-item">
-          <img src="images/systems1.jpg" alt="Premiere Pro 독학으로 단독 제작한 12편의 직무 교육 영상 썸네일 1">
+        <div class="case-section">
+          <div class="case-section-label">진단</div>
+          <div class="case-section-body">
+            급격한 매장 확대 과정에서 부서별 공지사항은 파편화되었고, 리더마다 교육을 해석하는 방식이 달라 매장별 품질 편차가 심화되었습니다. 본사의 기획 의도와 현장의 실행 사이에는 <strong>치명적인 '구조적 갭'</strong>이 존재했으며, 이를 해결하기 위해서는 텍스트를 넘어선 <strong>직관적인 학습 도구와 단일화된 운영 기준(SOP)</strong>이 절실했습니다.
+          </div>
         </div>
-        <div class="case-image-item">
-          <img src="images/systems2.jpg" alt="Premiere Pro 독학으로 단독 제작한 12편의 직무 교육 영상 썸네일 2">
+
+        <div class="case-section">
+          <div class="case-section-label">주도적 실행</div>
+          <div class="case-section-body">
+            <ul>
+              <li><strong>미디어 기반 직무 교육 체계 구축 (0 to 1)</strong> — Premiere Pro를 독학하여 <strong>총 12편의 직무 교육 영상을 단독 기획·촬영·편집</strong>했습니다. 이 성과를 인정받아 사내 영상 콘텐츠 제작 담당자로 포지셔닝되었으며, 2026년 전사 시무식 영상 제작을 전담했습니다.</li>
+              <li><strong>운영 기준 단일화 (SOP &amp; Manual)</strong> — 신규 리더의 빠른 적응을 위한 '점장 매뉴얼북' 제작에 참여하고, 전 부서의 실무 기준을 집대성한 <strong>'통합 직무 매뉴얼'을 백지상태에서 단독 집필</strong>했습니다.</li>
+              <li><strong>애자일 피드백 루프 설계</strong> — 매뉴얼 배포에 그치지 않고 현장 피드백을 실시간 수렴하여 콘텐츠를 즉각 업데이트하는 '순환형 학습 구조'를 정착시켰습니다.</li>
+            </ul>
+          </div>
         </div>
-         <p class="image-caption">독학으로 3개월 만에 제로베이스 구축한 시각화 기반 직무 교육 콘텐츠 예시</p>
-      
-  
 
+        <div class="case-images">
+          <div class="case-img-box">
+            <img src="images/systems1.jpg" alt="직무 교육 영상 썸네일 1">
+          </div>
+          <div class="case-img-box">
+            <img src="images/systems2.jpg" alt="직무 교육 영상 썸네일 2">
+          </div>
+        </div>
+        <p class="img-caption">독학으로 3개월 만에 제로베이스 구축한 시각화 기반 직무 교육 콘텐츠 예시</p>
 
-    <div class="case-result">
-      <div class="case-result-label">결과 및 증명</div>
-      <div class="case-result-body">
-        현장의 혼란을 해결하고 <strong>'기획-실행-피드백-개선'이 선순환되는 강건한 조직 학습(Organizational Learning) 구조</strong>를 안착시켰습니다. 대규모 신규 인원이 합류하더라도 흔들림 없이 동일한 교육 품질과 업무 기준이 유지되는 <strong>반복 가능한(Repeatable) 성장의 뼈대</strong>를 직접 증명해 냈습니다.
+        <div class="case-result">
+          <div class="case-result-label">결과 및 증명</div>
+          <div class="case-result-body">
+            현장의 혼란을 해결하고 <strong>'기획-실행-피드백-개선'이 선순환되는 조직 학습 구조</strong>를 안착시켰습니다. 대규모 신규 인원이 합류하더라도 동일한 교육 품질과 업무 기준이 유지되는 <strong>반복 가능한 성장의 뼈대</strong>를 직접 증명해 냈습니다.
+          </div>
+        </div>
       </div>
     </div>
 
+    <!-- CASE 04 · PARTNER RELATIONS -->
+    <div class="case-item" id="relations" data-animate>
+      <div class="case-left">
+        <div class="case-num">04</div>
+        <span class="case-tag">Partner Relations</span>
+      </div>
+      <div class="case-right">
+        <h3 class="case-title">다양한 이해관계자의 맥락을 연결하여<br>글로벌 파트너십과 지식 공유의 장을 설계하다</h3>
 
-  </div>
-</div>
+        <div class="case-section">
+          <div class="case-section-label">진단</div>
+          <div class="case-section-body">
+            조직이 글로벌 수준으로 도약하기 위해서는 내부 교육을 넘어 <strong>외부 전문가 및 파트너와의 적극적인 지식 교류</strong>가 필수적이었습니다. 문화와 언어가 다른 외부 이해관계자의 메시지가 사내에 왜곡 없이 전달되고, 파트너들에게 우리 브랜드의 철학이 깊이 있게 닿기 위해서는 <strong>양측의 맥락을 정확히 일치시키는 '브릿지' 역할</strong>이 필요했습니다.
+          </div>
+        </div>
 
+        <div class="case-section">
+          <div class="case-section-label">주도적 실행</div>
+          <div class="case-section-body">
+            <ul>
+              <li><strong>스피커 매니지먼트 &amp; 사전 싱크</strong> — 일본 바리스타 챔피언 코치의 사내 강연(2024) 기획 시, 강연 전날 연사와 별도 미팅을 주도했습니다. 우리 조직의 현재 고민과 구성원들의 니즈를 전달하여, <strong>강연 메시지가 조직의 방향성과 완벽히 얼라인되도록 톤앤매너를 조율</strong>했습니다.</li>
+              <li><strong>글로벌 교육 프로그램 퍼실리테이팅</strong> — 미국 커피 전문 기관(ACE) 주관 아시아 대상 센서리 교육(2022–2023)의 현장 운영을 보조하고, 다국적 참가자들 간 네트워킹을 활성화하는 커뮤니티 빌딩을 지원했습니다.</li>
+              <li><strong>글로벌 VIP 파트너 의전 &amp; 브랜딩</strong> — 온두라스 핵심 파트너 농장주 방문 시(2025) 전담 의전을 수행했습니다. 단순 통역을 넘어 매장 투어와 비즈니스 다이닝을 주관하며 <strong>브랜드의 철학과 가치를 직접 전달</strong>했습니다.</li>
+            </ul>
+          </div>
+        </div>
 
-  <!-- CASE 4: 파트너십 -->
- <div class="case-item" id="relations" data-animate>
-  <div class="case-left">
-    <div class="case-num">04</div>
-    <span class="case-tag">Partner Relations</span>
-  </div>
-  <div class="case-right">
-    <h3 class="case-title">다양한 이해관계자의 맥락을 연결하여<br>글로벌 파트너십과 지식 공유의 장을 설계하다</h3>
+        <div class="case-images single">
+          <div class="case-img-box">
+            <img src="images/relations.jpg" alt="ACE 아시아 정규 교육 퍼실리테이팅">
+          </div>
+        </div>
+        <p class="img-caption">미국 커피 전문 기관(ACE) 아시아 정규 교육 퍼실리테이팅 및 글로벌 커뮤니티 빌딩 주도</p>
 
-    <div class="case-section">
-      <div class="case-section-label">진단</div>
+        <div class="case-result">
+          <div class="case-result-label">결과 및 증명</div>
+          <div class="case-result-body">
+            생산 현장(글로벌 산지)과 소비 현장(브랜드)의 심리적 거리감을 좁혀 견고한 파트너십을 유지했습니다. 외부 초청 강연에서 <strong>연사의 전문 지식을 사내 상황에 맞게 커스터마이징하여 전달</strong>함으로써 구성원 교육 만족도를 극대화하고, 내·외부 커뮤니티를 성공적으로 연결했습니다.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /case-list -->
+</section><!-- /cases -->
+
+<!-- ─── RETROSPECTIVE ─── -->
+<section class="retrospective" id="retrospective">
+  <p class="section-label">Retrospective</p>
+  <h2 class="section-title">완벽한 기획보다 중요한 것은,<br>현장과 함께 호흡하는 애자일한 태세 전환입니다</h2>
+
+  <div class="retro-grid">
+    <div class="retro-block" data-animate>
+      <div class="case-section-label" style="margin-bottom:0.8rem;">문제 직면</div>
       <div class="case-section-body">
-        조직이 글로벌 수준으로 도약하기 위해서는 내부의 교육을 넘어 <strong>외부 전문가 및 파트너와의 적극적인 지식 교류</strong>가 필수적이었습니다. 하지만 문화와 언어가 다른 외부 이해관계자의 메시지가 사내에 왜곡 없이 전달되고, 파트너들에게 우리 브랜드의 철학이 깊이 있게 닿기 위해서는 <strong>양측의 맥락(Context)을 정확히 일치시키는 '브릿지(Bridge)' 역할</strong>이 필요했습니다.
+        <strong>"기획은 본사에서 하지만, 실행은 현장에서 합니다."</strong><br><br>
+        온보딩 기간을 단축하기 위해 '순환 온보딩 아키텍처'를 처음 배포했을 때, 예상과 달리 현장 실행률이 저조했습니다. 제도를 완벽하게 기획했다는 자만에 빠져, 정작 제도를 실행해야 할 <strong>현장 리더들의 심리적 저항감</strong>과 '숙련도 저하'에 대한 우려를 사전에 충분히 케어하지 못한 결과였습니다.
       </div>
     </div>
 
-    <div class="case-section">
-      <div class="case-section-label">주도적 실행</div>
+    <div class="retro-block" data-animate>
+      <div class="case-section-label" style="margin-bottom:0.8rem;">회고 및 방향 전환</div>
       <div class="case-section-body">
-        <ul>
-          <strong>• 스피커 매니지먼트 & 사전 싱크(Pre-Sync):</strong> 일본 바리스타 챔피언 코치의 사내 강연(2024) 기획 시, 강연 전날 연사와 별도 미팅을 주도했습니다. 우리 조직의 현재 고민과 구성원들의 니즈를 전달하여, <strong>강연 메시지가 조직의 방향성과 완벽히 얼라인(Align)되도록 톤앤매너를 조율</strong>했습니다.<br><br>
-          <strong>• 글로벌 교육 프로그램 퍼실리테이팅:</strong> 미국 커피 전문 기관(ACE) 주관 아시아 대상 센서리 교육(2022-2023)의 현장 운영을 보조하고, 다국적 참가자들 간의 네트워킹을 활성화하는 커뮤니티 빌딩을 지원했습니다.<br><br>
-          <strong>• 글로벌 VIP 파트너 의전 및 브랜딩:</strong> 온두라스 핵심 파트너 농장주 방문 시(2025) 전담 의전을 수행했습니다. 단순 통역을 넘어 매장 투어와 비즈니스 다이닝을 주관하며 <strong>브랜드의 철학과 가치를 직접 전달</strong>했습니다.
-        </ul>
-      </div>
-    </div>
-
-    <div class="case-image-item">
-      <img src="images/relations.jpg" alt="미국 커피 전문 기관(ACE) 공식 교육 과정의 대표 퍼실리테이터 활동 썸네일">
-    </div>
-    <p class="image-caption">미국 커피 전문 기관(ACE) 아시아 정규 교육 퍼실리테이팅 및 글로벌 커뮤니티 빌딩 주도</p>
-
-    <div class="case-result">
-      <div class="case-result-label">결과 및 증명</div>
-      <div class="case-result-body">
-        생산 현장(글로벌 산지)과 소비 현장(브랜드)의 심리적 거리감을 좁혀 견고한 파트너십을 유지했습니다. 특히 외부 초청 강연에서 <strong>연사의 전문 지식을 사내 상황에 맞게 커스터마이징하여 전달(Speaker Sync)</strong>함으로써 사내 구성원들의 교육 만족도를 극대화하고, 내/외부 커뮤니티를 성공적으로 연결했습니다.
+        조직문화는 시스템을 던져주는 것이 아니라 <strong>'스며들게 하는 것'</strong>임을 뼈저리게 배웠습니다. 즉시 새로운 제도의 푸시를 멈추고, 현장 점장들과 1:1 딥톡을 진행해 VOC를 수집했습니다. 이후 제도를 강요하는 대신, 리더들을 '가르치는 사람'에서 '성장을 돕는 코치'로 재정의하는 <strong>리더십 코칭 세션을 선제적으로 진행하는 것으로 전략을 전면 수정(Pivot)</strong>했습니다.
       </div>
     </div>
   </div>
-</div>
- 
- 
-<!-- CASE 5: 실패 -->
-<div class="case-item" id="retrospective" data-animate>
-  <div class="case-left">
-    <div class="case-num">05</div>
-    <span class="case-tag">Retrospective</span>
+
+  <div class="case-result" style="margin-top:3rem;" data-animate>
+    <div class="case-result-label">결과 및 성장</div>
+    <div class="case-result-body">
+      시스템의 성공 여부는 '완벽한 문서'가 아니라 <strong>'구성원들의 공감대'</strong>에 있다는 것을 깨달았습니다. 실패를 빠르게 인정하고 현장의 언어로 접근 방식을 바꾼 결과, 리더들의 자발적인 참여를 이끌어낼 수 있었습니다. 이 뼈아픈 회고와 태세 전환은 결국 <strong>'97% 신규 입사자 조기 안착'이라는 압도적인 결과의 가장 큰 밑거름</strong>이 되었습니다.
+    </div>
   </div>
-  <div class="case-right">
-    <h3 class="case-title">완벽한 기획보다 중요한 것은,<br>현장과 함께 호흡하는 '애자일(Agile)한 태세 전환'입니다</h3>
-
-    <div class="case-section">
-      <div class="case-section-label">문제 직면</div>
-      <div class="case-section-body">
-        <strong>"기획은 본사에서 하지만, 실행은 현장에서 합니다."</strong><br>
-        온보딩 기간을 단축하기 위해 '순환 온보딩 아키텍처'를 처음 배포했을 때, 예상과 달리 현장 실행률이 저조했습니다. 제도를 완벽하게 기획했다는 자만에 빠져, 정작 제도를 실행해야 할 <strong>현장 리더들의 심리적 저항감(Top-down 지시에 대한 피로도)</strong>과 '숙련도 저하'에 대한 우려를 사전에 충분히 케어하지 못한 결과였습니다.
-      </div>
-    </div>
-
-    <div class="case-section">
-      <div class="case-section-label">회고 및 방향 전환</div>
-      <div class="case-section-body">
-        조직문화는 시스템을 던져주는 것이 아니라 <strong>'스며들게 하는 것'</strong>임을 뼈저리게 배웠습니다. 즉시 새로운 제도의 푸시(Push)를 멈추고, 현장 점장들과의 1:1 딥톡(Deep-talk)을 진행해 VOC를 수집했습니다. 이후 제도를 강요하는 대신, 리더들을 '가르치는 사람'에서 '성장을 돕는 코치'로 재정의하는 <strong>리더십 코칭 세션을 선제적으로 진행하는 것으로 전략을 전면 수정(Pivot)했습니다.</strong>
-      </div>
-    </div>
-
-    <div class="case-result">
-      <div class="case-result-label">결과 및 성장</div>
-      <div class="case-result-body">
-        시스템의 성공 여부는 '완벽한 문서'가 아니라 <strong>'구성원들의 공감대'</strong>에 있다는 것을 깨달았습니다. 실패를 빠르게 인정하고 현장의 언어로 접근 방식을 바꾼 결과, 리더들의 자발적인 참여를 이끌어낼 수 있었습니다. 이 뼈아픈 회고와 태세 전환은 결국 <strong>'97% 신규 입사자 조기 안착'이라는 압도적인 결과의 가장 큰 밑거름</strong>이 되었습니다.
-      </div>
-    </div>
 </section>
 
-<section class="conclusion" id="conclusion" data-animate>
-  <div class="conclusion-content">
+<!-- ─── CONCLUSION ─── -->
+<section class="conclusion" id="conclusion">
+  <div class="conclusion-inner">
+    <p class="section-label">Next Chapter</p>
     <h2 class="section-title">현장에서 증명한 확신,<br>그리고 다음 챕터</h2>
     <p class="conclusion-desc">
-      8년간 현장의 최전선에서 바닥부터 시스템을 설계하며 얻은 가장 큰 수확은, <strong>'어떤 낯선 문제라도 본질을 딥다이브(Deep-dive)하면 결국 시스템으로 풀 수 있다'</strong>는 단단한 확신입니다. 단순히 툴을 도입하고 제도를 론칭하는 데 그치지 않고, 실패를 통해 기민하게 가설을 수정(Pivot)하며 구성원의 마음을 움직여 진짜 변화를 만들어내는 법을 배웠습니다.<br><br>
-      이제 이 치열했던 성공과 회고의 경험치를 바탕으로, 더 빠르고 역동적인 비즈니스 환경에서 조직의 스케일업(Scale-up) 과정에 동반되는 성장통을 해결하고 구성원의 미션(Mission)을 정렬하는 기획자로서 다음 챕터를 열고자 합니다.
+      8년간 현장의 최전선에서 바닥부터 시스템을 설계하며 얻은 가장 큰 수확은, <strong>'어떤 낯선 문제라도 본질을 딥다이브하면 결국 시스템으로 풀 수 있다'</strong>는 단단한 확신입니다. 단순히 툴을 도입하고 제도를 론칭하는 데 그치지 않고, 실패를 통해 기민하게 가설을 수정하며 구성원의 마음을 움직여 진짜 변화를 만들어내는 법을 배웠습니다.<br><br>
+      이제 이 치열했던 성공과 회고의 경험치를 바탕으로, 더 빠르고 역동적인 비즈니스 환경에서 조직의 스케일업 과정에 동반되는 성장통을 해결하고 구성원의 미션을 정렬하는 기획자로서 다음 챕터를 열고자 합니다.
     </p>
   </div>
 </section>
 
-
-<!-- CONTACT -->
+<!-- ─── CONTACT ─── -->
 <section class="contact" id="contact">
   <p class="section-label">Contact</p>
   <h2 class="section-title">컬처를 구조로 만드는<br>여정을 함께하고 싶습니다</h2>
@@ -352,13 +868,31 @@
   </div>
 </section>
 
-
-<!-- 꼬리말 -->
+<!-- ─── FOOTER ─── -->
 <footer>
-  <span>박세미 · Culture / L&D</span>
+  <span>박세미 · Culture / L&amp;D</span>
   <span>© 2026</span>
 </footer>
 
-<script src="script.js"></script>
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      } else {
+        entry.target.classList.remove('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
