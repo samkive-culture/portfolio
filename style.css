@@ -361,7 +361,7 @@ footer {
 .case-image img {
  flex: 1;               /* 추가: 균등 너비 */
  width: 0;              /* 추가: flex 너비 계산용 */
- height: 320px;         /* 변경: auto → 고정 높이 */
+ height: 280px;         /* 변경: auto → 고정 높이 */
  object-fit: cover;     /* 추가 */
  object-position: top;  /* 추가: 소식지 위쪽부터 보이게 */
  display: block;
