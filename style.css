@@ -393,13 +393,15 @@ footer {
   border-radius: 8px;
   padding: 12px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
 .case-image-item img {
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  object-posiiton: top;
   border-radius: 4px; /* 이미지 자체도 살짝 둥글게 */
 }
 
